@@ -1,0 +1,103 @@
+<style>
+  body{
+    padding: 8px;
+  }
+  h5{
+    padding-top: 12px;
+    text-align: center;
+  }
+  .control{
+    display: inline-block;
+    width: 100%;
+    height: 32px;
+    padding: 0 12px 0 4px;
+    font-size: 14;
+    border-radius: 4px;
+    border-color: rgb(166, 166, 166);
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  .label{
+    font-size: 14;
+    width: 100%;
+    padding-bottom: 4px;
+    color: dimgray;
+    display: inline-block;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  }
+  #print{
+    height: 32px;
+    width: 186px;
+    margin-right: 12px;
+    border: none;
+    background-color: dodgerblue;
+    color: aliceblue;
+    border-radius: 4px;
+  }
+  #cancel{
+    height: 32px;
+    width: 80px;
+    border: none;
+    border-radius: 4px;
+  }
+  #subtilte{
+    margin-top: 4px;
+    padding: 0;
+    display: inline-block;
+  }
+  </style>
+
+<!-- <h5>打印组件属性</h5> -->
+
+<form id="pluginForm">
+  <!-- <p>
+    <label for="bgcolor">Background color</label>
+    <input type="color" id="bgColor" name="bgColor" value="#F9F9F9">
+  </p> -->
+  <p>
+    <label class="label" for="description">表宽</label>
+    <input class="control" type="number" id="col01" name="tableWidth" value="1600" min="900" max="2000"></p>
+  <p>
+    <label class="label" for="description">备注</label>
+    <input class="control" type="text" id="desc" name="desc" value="" placeholder="请填写...">
+  </p>
+  <p>
+    <label class="label" for="circleSize">标签圆角</label>
+    <input class="control" type="number" id="circleSize" name="circleSize" value="4" min="0" max="20">
+  </p>
+
+<!-- <p>column02: <input id="col02" value="560"></p>
+<p>column03: <input id="col03" value="160"></p> -->
+</form>
+<span class="label" id="subtitle">确保你选择的组件有创建属性,了解更多<a href="https://www.figma.com/best-practices/creating-and-organizing-variants/">组件变体</a></span>
+<button id="print">创建</button>
+<button id="cancel">取消</button>
+
+
+<script>
+
+document.getElementById('print').onclick = () => {
+  const textbox01 = document.getElementById('col01');
+  // const textbox02 = document.getElementById('col02');
+  // const textbox03 = document.getElementById('col03');
+  const col01 = parseInt(textbox01.value, 10);
+  // get PluginForm
+  let pluginForm = document.querySelector('#pluginForm');
+  // get the field data from the form
+  let pluginFormData = new FormData(pluginForm);
+  // Create an Object an populate it with the form data
+  let formDataObj = {};
+  for (let [key,value] of pluginFormData){
+    formDataObj[key] = value
+  }
+  // console.log(formDataObj)
+
+  parent.postMessage({ pluginMessage: { type: 'anctionCreate', formDataObj } }, '*');
+  // parent.postMessage({ pluginMessage: { type: 'print', col02 } }, '*');
+  // parent.postMessage({ pluginMessage: { type: 'print', col03 } }, '*');
+}
+
+document.getElementById('cancel').onclick = () => {
+  parent.postMessage({ pluginMessage: { type: 'cancel' } }, '*')
+}
+
+</script>

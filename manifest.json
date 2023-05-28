@@ -1,0 +1,10 @@
+{
+  "name": "Print Component Properties",
+  "id": "1199381319414708833",
+  "api": "1.0.0",
+  "main": "code.js",
+  "editorType": [
+    "figma"
+  ],
+  "ui": "ui.html"
+}
