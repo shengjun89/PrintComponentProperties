@@ -1,0 +1,2 @@
+# PrintComponentProperties
+快速获取组件参数类型和值生成表格
