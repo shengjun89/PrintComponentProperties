@@ -4,7 +4,7 @@
 
 02. Figma 选择开发->通过manifest文件导入插件
 
-03. 选择manifest.josn文件打开
+03. 选择manifest.json文件打开
 
 04. 选择运行插件
 
@@ -31,3 +31,9 @@
 04. Step04: 修改你的描述文案
 
 
+
+## v1.0.1
+
+- 表头与正文逐行取三列中的最大高度，消除列间累计错位，并垂直居中内容。
+- 插件菜单名称为 `Print Component Properties · 行高修复版`。
+- 下载仓库后，在 Figma 桌面端通过 Plugins → Development → Import plugin from manifest 导入 `manifest.json`；仓库已包含可运行的 `code.js`。

@@ -5,7 +5,7 @@
 // You can access browser APIs in the <script> tag inside "ui.html" which has a
 // full browser environment (see documentation).
 // This shows the HTML page in "ui.html".
-figma.showUI(__html__, { width: 320, height: 320, title: "Print Component Properties" });
+figma.showUI(__html__, { width: 320, height: 320, title: "Print Component Properties v1.0.1" });
 // Calls to "parent.postMessage" from within the HTML page will trigger this
 // callback. The callback will be passed the "pluginMessage" property of the
 // posted message.
@@ -311,6 +311,19 @@ figma.ui.onmessage = msg => {
                 col03celltxt.fills = [{ type: "SOLID", color: { r: 0, g: 0, b: 0 } }];
                 col03celltxt.resize(252, 25);
                 col03cell.appendChild(col03celltxt);
+            }
+            // Synchronize each row across the three independently sized columns.
+            for (let row = 0; row < columns[0].children.length; row++) {
+              const cells = columns.map(column => column.children[row]);
+              const rowHeight = Math.max(...cells.map(cell => cell.height));
+              for (const cell of cells) {
+                cell.resize(cell.width, rowHeight);
+                if (cell.layoutMode === 'VERTICAL') {
+                  cell.primaryAxisAlignItems = 'CENTER';
+                } else {
+                  cell.counterAxisAlignItems = 'CENTER';
+                }
+              }
             }
             figma.notify('👻打印成功~');
         }
